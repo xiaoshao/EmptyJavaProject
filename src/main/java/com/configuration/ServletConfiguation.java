@@ -10,9 +10,4 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.controller")
 public class ServletConfiguation {
-
-    @Bean
-    PropertySourcesPlaceholderConfigurer initResolver(){
-        return new PropertySourcesPlaceholderConfigurer();
-    }
 }

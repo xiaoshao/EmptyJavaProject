@@ -2,11 +2,14 @@ package com.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class ApplicationConfiguration extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class ApplicationConfiguration extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootConfiguation.class};
+        return new Class<?>[]{
+                RootConfiguation.class,
+                DataSourceConfiguration.class
+        };
     }
 
     @Override
