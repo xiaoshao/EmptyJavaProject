@@ -22,6 +22,10 @@ dependencies {
     compile "org.springframework:spring-web:${SPRING_VERSION}"
     compile "org.springframework:spring-webmvc:${SPRING_VERSION}"
     compile "org.springframework:spring-jdbc:${SPRING_VERSION}"
+    compile "org.springframework.security:spring-security-core:4.1.3.RELEASE"
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.1.3.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.1.3.RELEASE'
+
     compile "org.apache.tomcat:tomcat-jdbc:9.0.0.M10"
     compile "org.mariadb.jdbc:mariadb-java-client:1.5.2"
     compile "com.fasterxml.jackson.core:jackson-core:2.5.1"

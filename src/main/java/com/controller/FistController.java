@@ -13,4 +13,9 @@ public class FistController {
     public String hello(@PathVariable("name") String name) {
         return "hello " + name;
     }
+
+    @RequestMapping("test")
+    public String test(){
+        return "first";
+    }
 }
