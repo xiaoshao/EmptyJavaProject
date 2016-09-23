@@ -5,10 +5,12 @@ import com.configuration.ApplicationConfiguration;
 import com.configuration.DataSourceConfiguration;
 import com.configuration.RootConfiguation;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
@@ -16,6 +18,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
@@ -26,16 +29,19 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
         @ContextConfiguration(classes = RootConfiguation.class),
         @ContextConfiguration(classes = ApplicationConfiguration.class)
 })
-
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class
+        DbUnitTestExecutionListener.class,
 })
 @TestPropertySource(locations = "classpath:application.properties")
+@DbUnitConfiguration
 public class UserDaoTest {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private DataSource datasource;
 
     @Test
     public void shouldSaveTheUserToDataBaseCorrectly() throws Exception {
@@ -43,7 +49,8 @@ public class UserDaoTest {
     }
 
     @Test
+    @DatabaseSetup(value="user_data.xml")
     public void shouldGetTheUserById() throws Exception {
-        assertThat(userDao.queryById(10).get(), samePropertyValuesAs(new User(10, "xiaoshao")));
+        assertThat(userDao.queryById(1).get(), samePropertyValuesAs(new User(1, "xiaoshao")));
     }
 }

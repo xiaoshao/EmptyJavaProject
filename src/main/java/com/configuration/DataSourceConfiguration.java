@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 @Configuration
 public class DataSourceConfiguration {
 

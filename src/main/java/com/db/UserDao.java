@@ -27,7 +27,7 @@ public class UserDao {
 
     public Optional<User> queryById(int id) {
         List<User> users = this.jdbcTemplate.query("select id, name from USER where id=?",
-                new Object[]{10L},
+                new Object[]{id},
                 new RowMapper<User>() {
                     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
                         int id = rs.getInt("id");
@@ -35,7 +35,7 @@ public class UserDao {
                         return new User(id, name);
                     }
                 });
-        
+
         return users.size() > 0 ? Optional.of(users.get(0)) : Optional.empty();
     }
 

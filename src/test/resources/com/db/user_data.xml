@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataset>
+    <User id="1" name="xiaoshao" />
+    <User id="2" name="DBUnit 2" />
+</dataset>
