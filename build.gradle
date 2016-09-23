@@ -38,7 +38,7 @@ dependencies {
 
 flyway {
     driver = "org.mariadb.jdbc.Driver"
-    schemas = ["sample", "purely"]
+    schemas = ["purely"]
     locations = ['classpath:db.migration']
     user = 'root'
     password = ''
