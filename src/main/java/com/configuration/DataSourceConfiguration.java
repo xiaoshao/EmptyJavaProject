@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class DataSourceConfiguration {
@@ -21,5 +22,11 @@ public class DataSourceConfiguration {
         dataSource.setDriverClassName(environment.getProperty("database.driver"));
         dataSource.setUrl(environment.getProperty("database.url"));
         return dataSource;
+    }
+
+    @Bean
+    @Autowired
+    public JdbcTemplate initJDBCTemplate(DataSource dataSource){
+        return new JdbcTemplate(dataSource);
     }
 }

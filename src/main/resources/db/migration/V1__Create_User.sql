@@ -1,0 +1,1 @@
+CREATE TABLE USER (id INT , name VARCHAR(50) );
