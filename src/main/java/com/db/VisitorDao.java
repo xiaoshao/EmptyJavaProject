@@ -22,7 +22,7 @@ public class VisitorDao {
     }
 
     public void save() {
-        this.jdbcTemplate.update("insert into USER(id, name) values(?, ?)", "10", "xiaoshao");
+        this.jdbcTemplate.update("insert into USER(id, username, password, role) values(?, ?, ?, ?)", "10", "addedUser", "password", "ROLE_ADMIN");
     }
 
     public Optional<Visitor> queryById(int id) {
@@ -37,7 +37,6 @@ public class VisitorDao {
         List<Visitor> users = this.jdbcTemplate.query("select id, username, password, role from USER where username=?",
                 new Object[]{username},
                 new UserRowMapper());
-
 
         return users.size() > 0 ? Optional.of(users.get(0)) : Optional.empty();
     }

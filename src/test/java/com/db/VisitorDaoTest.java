@@ -3,10 +3,9 @@ package com.db;
 import com.bean.Visitor;
 import com.configuration.ApplicationConfiguration;
 import com.configuration.DataSourceConfiguration;
-import com.configuration.RootConfiguation;
+import com.configuration.RootConfiguration;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +23,7 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
 @RunWith(SpringRunner.class)
 @ContextHierarchy({
         @ContextConfiguration(classes = DataSourceConfiguration.class),
-        @ContextConfiguration(classes = RootConfiguation.class),
+        @ContextConfiguration(classes = RootConfiguration.class),
         @ContextConfiguration(classes = ApplicationConfiguration.class)
 })
 @TestExecutionListeners({
@@ -32,7 +31,6 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
         DbUnitTestExecutionListener.class,
 })
 @TestPropertySource(locations = "classpath:application.properties")
-@DbUnitConfiguration
 public class VisitorDaoTest {
 
     @Autowired
@@ -47,13 +45,15 @@ public class VisitorDaoTest {
     }
 
     @Test
-    @DatabaseSetup(value="user_data.xml")
+    @DatabaseSetup({"user_data.xml"})
+//    @ExpectedDatabase("user_data.xml")
     public void shouldGetTheUserById() throws Exception {
-        assertThat(userDao.queryById(1).get(), samePropertyValuesAs(new Visitor(10, "xiaoshao", "xiaoshao", "ROLE_ADMIN")));
+        assertThat(userDao.queryById(2).get(), samePropertyValuesAs(new Visitor(2, "DBUnit 2", "xiaoshao", "ROLE_ADMIN")));
     }
 
     @Test
+    @DatabaseSetup({"user_data.xml"})
     public void shouldGetTheVisitorByName(){
-        assertThat(userDao.getUserByName("xiaoshao").get(), samePropertyValuesAs(new Visitor(10, "xiaoshao", "xiaoshao", "ROLE_ADMIN")));
+        assertThat(userDao.getUserByName("xiaoshao").get(), samePropertyValuesAs(new Visitor(1, "xiaoshao", "xiaoshao", "ROLE_ADMIN")));
     }
 }

@@ -18,7 +18,7 @@ public class DataSourceConfiguration {
     @Autowired
     private Environment environment;
 
-    @Bean
+    @Bean(name="dataSource")
     public DataSource initDataSource(){
         DataSource dataSource = new DataSource();
         dataSource.setUsername(environment.getProperty("database.username"));

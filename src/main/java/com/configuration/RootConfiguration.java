@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan(basePackages = "com",
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
 @PropertySource("classpath:application.properties")
-public class RootConfiguation {
+public class RootConfiguration {
 
     @Bean
     public PropertySourcesPlaceholderConfigurer initResolver(){

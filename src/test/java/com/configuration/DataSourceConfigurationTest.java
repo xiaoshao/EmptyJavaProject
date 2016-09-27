@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
 @ContextHierarchy({
-        @ContextConfiguration(classes = RootConfiguation.class)
+        @ContextConfiguration(classes = RootConfiguration.class)
 })
 @TestPropertySource(locations = "classpath:application.properties")
 public class DataSourceConfigurationTest {

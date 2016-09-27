@@ -7,14 +7,14 @@ public class ApplicationConfiguration extends AbstractAnnotationConfigDispatcher
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{
-                RootConfiguation.class,
+                RootConfiguration.class,
                 DataSourceConfiguration.class
         };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{ServletConfiguation.class, SecurityConfig.class};
+        return new Class<?>[]{ServletConfiguration.class, SecurityConfig.class};
     }
 
     @Override
