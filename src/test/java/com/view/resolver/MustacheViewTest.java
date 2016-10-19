@@ -55,6 +55,36 @@ public class MustacheViewTest {
         assertThat(sw.toString(), is("<div>xiaoshao</div>Here is view"));
     }
 
+    @Test
+    public void shouldRenderTheViewCorrectlyWhenTheViewWith2LayersTemplate() throws Exception {
+        HashMap<String, Object> models = new HashMap<>();
+        models.put("2LayerKey", "2LayerValue");
+
+        StringWriter sw = new StringWriter();
+        when(response.getWriter()).thenReturn(new PrintWriter(sw));
+
+        MustacheView mustacheView = createViewWith2LayersTemplate();
+
+        mustacheView.renderMergedTemplateModel(models, request, response);
+
+        assertThat(sw.toString(), is("<2 layer><1 layer>2LayerValue<1layer><2 layer>"));
+    }
+
+    private MustacheView createViewWith2LayersTemplate() {
+        MustacheView mustacheView = new MustacheView();
+        mustacheView.setView(createMustache("{{2LayerKey}}", "content"));
+
+        MustacheView mustacheView1Layer = new MustacheView();
+        mustacheView.setView(createMustache("<1 layer>{{body}}<1layer>", "1 layer"));
+        mustacheView.setTemplate(mustacheView1Layer);
+
+        MustacheView mustacheView2Layer = new MustacheView();
+        mustacheView2Layer.setView(createMustache("<2 layer>{{body}}<2layer>", "2 layer"));
+        mustacheView1Layer.setTemplate(mustacheView2Layer);
+
+        return mustacheView;
+    }
+
     private MustacheView createViewWith1LayerTemplate() {
         MustacheView mustacheView = new MustacheView();
 

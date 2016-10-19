@@ -6,6 +6,7 @@ import org.springframework.web.servlet.view.AbstractTemplateView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
@@ -18,14 +19,24 @@ public class MustacheView extends AbstractTemplateView implements View {
     @Override
     protected void renderMergedTemplateModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType(getContentType());
+        if(template == null){
+
+        }
+
         if (template != null) {
             StringWriter sw = new StringWriter();
             mustache.execute(sw, model);
             model.put(placeHolderVariable, sw.toString());
             template.renderMergedTemplateModel(model, request, response);
         } else if (mustache != null) {
-            mustache.execute(response.getWriter(), model);
+            buildView(model);
         }
+    }
+
+    private String buildView(Map<String, Object> model) throws IOException {
+        StringWriter sw = new StringWriter();
+        mustache.execute(sw, model);
+        return sw.toString();
     }
 
     public void setTemplate(MustacheView template) {
