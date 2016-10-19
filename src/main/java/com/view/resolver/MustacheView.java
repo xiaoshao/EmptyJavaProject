@@ -1,5 +1,6 @@
 package com.view.resolver;
 
+import com.github.mustachejava.Mustache;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.AbstractTemplateView;
 
@@ -10,31 +11,32 @@ import java.util.Map;
 
 public class MustacheView extends AbstractTemplateView implements View {
 
-    private MustacheTemplate template;
-    private MustacheTemplate view;
+    private MustacheView template;
+    private Mustache mustache;
     private String placeHolderVariable = "body";
 
     @Override
     protected void renderMergedTemplateModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType(getContentType());
-        if(template == null){
-            view.execute(response.getWriter(), model);
-        }else{
+        if (template != null) {
             StringWriter sw = new StringWriter();
-            view.execute(sw, model);
-            template.execute(response.getWriter(), model, sw.toString(), placeHolderVariable);
+            mustache.execute(sw, model);
+            model.put(placeHolderVariable, sw.toString());
+            template.renderMergedTemplateModel(model, request, response);
+        } else if (mustache != null) {
+            mustache.execute(response.getWriter(), model);
         }
     }
 
-    public void setTemplate(MustacheTemplate template) {
+    public void setTemplate(MustacheView template) {
         this.template = template;
-    }
-
-    public void setView(MustacheTemplate view) {
-        this.view = view;
     }
 
     public void setPlaceHolderVariable(String placeHolderVariable) {
         this.placeHolderVariable = placeHolderVariable;
+    }
+
+    public void setView(Mustache mustache) {
+        this.mustache = mustache;
     }
 }

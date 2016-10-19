@@ -1,6 +1,7 @@
 package com.view.resolver;
 
 
+import com.github.mustachejava.DefaultMustacheFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.AbstractTemplateViewResolver;
@@ -9,28 +10,26 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
 
     private String templateName;
 
+    private DefaultMustacheFactory defaultMustacheFactory;
+
     public MustacheViewResolver(String templateName) {
-        setViewClass(MustacheTemplate.class);
+        setViewClass(MustacheView.class);
+        defaultMustacheFactory = new DefaultMustacheFactory();
         this.templateName = templateName;
     }
 
     @Override
     protected MustacheView buildView(String viewName) throws Exception {
-        final MustacheTemplate view = (MustacheTemplate) super.buildView(viewName);
+        final MustacheView view = (MustacheView) super.buildView(viewName);
 
         MustacheView mustacheView = new MustacheView();
-        mustacheView.setUrl(getViewUrl(viewName));
-        mustacheView.setView(view);
+        mustacheView.setView(defaultMustacheFactory.compile(view.getUrl()));
 
         if(!StringUtils.isEmpty(templateName)){
-            final MustacheTemplate template = (MustacheTemplate) super.buildView(templateName);
+            final MustacheView template = (MustacheView) super.buildView(templateName);
             mustacheView.setTemplate(template);
         }
 
         return mustacheView;
-    }
-
-    private String getViewUrl(String viewName){
-        return getPrefix() + viewName + getSuffix();
     }
 }
