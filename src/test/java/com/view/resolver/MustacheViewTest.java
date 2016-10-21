@@ -75,11 +75,11 @@ public class MustacheViewTest {
         mustacheView.setView(createMustache("{{2LayerKey}}", "content"));
 
         MustacheView mustacheView1Layer = new MustacheView();
-        mustacheView.setView(createMustache("<1 layer>{{body}}<1layer>", "1 layer"));
+        mustacheView1Layer.setView(createMustache("<1 layer>{{{body}}}<1layer>", "1 layer"));
         mustacheView.setTemplate(mustacheView1Layer);
 
         MustacheView mustacheView2Layer = new MustacheView();
-        mustacheView2Layer.setView(createMustache("<2 layer>{{body}}<2layer>", "2 layer"));
+        mustacheView2Layer.setView(createMustache("<2 layer>{{{body}}}<2 layer>", "2 layer"));
         mustacheView1Layer.setTemplate(mustacheView2Layer);
 
         return mustacheView;

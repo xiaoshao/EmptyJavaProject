@@ -20,16 +20,11 @@ public class MustacheView extends AbstractTemplateView implements View {
     protected void renderMergedTemplateModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType(getContentType());
         if(template == null){
-
-        }
-
-        if (template != null) {
-            StringWriter sw = new StringWriter();
-            mustache.execute(sw, model);
-            model.put(placeHolderVariable, sw.toString());
+            mustache.execute(response.getWriter(), model);
+        }else{
+            String partial = buildView(model);
+            model.put(placeHolderVariable, partial);
             template.renderMergedTemplateModel(model, request, response);
-        } else if (mustache != null) {
-            buildView(model);
         }
     }
 
