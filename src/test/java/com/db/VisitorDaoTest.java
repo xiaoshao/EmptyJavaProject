@@ -36,17 +36,13 @@ public class VisitorDaoTest {
     @Autowired
     private VisitorDao userDao;
 
-    @Autowired
-    private DataSource datasource;
-
     @Test
     public void shouldSaveTheUserToDataBaseCorrectly() throws Exception {
         userDao.save();
     }
 
     @Test
-    @DatabaseSetup({"user_data.xml"})
-//    @ExpectedDatabase("user_data.xml")
+    @DatabaseSetup(value = {"user_data.xml"}, connection= "dataSource")
     public void shouldGetTheUserById() throws Exception {
         assertThat(userDao.queryById(2).get(), samePropertyValuesAs(new Visitor(2, "DBUnit 2", "xiaoshao", "ROLE_ADMIN")));
     }
