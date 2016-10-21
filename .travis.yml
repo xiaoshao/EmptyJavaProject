@@ -11,5 +11,7 @@ cache:
   directories:
   - .autoconf
   - $HOME/.m2
-before_script: ./gradlew flywayMigrate --info
+before_script:
+  - mysql -u root -e 'create database IF NOT EXISTS purely;'
+  - mysql -u root -e 'create table purely.USER (id INT, username VARCHAR(50), password VARCHAR(50), role VARCHAR(20), enabled boolean);'
 script: ./gradlew test --info
