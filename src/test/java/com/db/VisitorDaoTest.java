@@ -44,7 +44,7 @@ public class VisitorDaoTest {
     @Test
 //    @DatabaseSetup(value = {"user_data.xml"}, connection= "dataSource")
     public void shouldGetTheUserById() throws Exception {
-        assertThat(userDao.queryById(10).get(), samePropertyValuesAs(new Visitor(2, "DBUnit 2", "xiaoshao", "ROLE_ADMIN")));
+        assertThat(userDao.queryById(10).get(), samePropertyValuesAs(new Visitor(10, "addedUser", "password", "ROLE_ADMIN")));
     }
 
 //    @Test
