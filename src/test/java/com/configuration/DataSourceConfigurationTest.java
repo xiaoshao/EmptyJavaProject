@@ -4,6 +4,7 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.TestPropertySource;
@@ -19,13 +20,13 @@ import static org.hamcrest.Matchers.is;
 @TestPropertySource(locations = "classpath:application.properties")
 public class DataSourceConfigurationTest {
     @Autowired
-    private DataSource dataSource;
+    private DriverManagerDataSource dataSource;
 
     @Test
     public void configDataSourceCorrectly() {
         assertThat(dataSource.getUsername(), is("root"));
-//        assertThat(dataSource.getPassword(), is(""));
+        assertThat(dataSource.getPassword(), is(""));
         assertThat(dataSource.getUrl(), is("jdbc:mysql://localhost:3306/purely"));
-        assertThat(dataSource.getDriverClassName(), is("org.mariadb.jdbc.Driver"));
+//        assertThat(dataSource., is("org.mariadb.jdbc.Driver"));
     }
 }

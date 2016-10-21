@@ -48,7 +48,7 @@ public class VisitorDaoTest {
     }
 
     @Test
-    @DatabaseSetup({"user_data.xml"})
+    @DatabaseSetup(value = {"user_data.xml"}, connection= "dataSource")
     public void shouldGetTheVisitorByName(){
         assertThat(userDao.getUserByName("xiaoshao").get(), samePropertyValuesAs(new Visitor(1, "xiaoshao", "xiaoshao", "ROLE_ADMIN")));
     }

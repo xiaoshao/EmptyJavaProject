@@ -23,6 +23,8 @@ public class VisitorDao {
 
     public void save() {
         this.jdbcTemplate.update("insert into USER(id, username, password, role) values(?, ?, ?, ?)", "10", "addedUser", "password", "ROLE_ADMIN");
+
+//        jdbcTemplate.query("show databases");
     }
 
     public Optional<Visitor> queryById(int id) {
