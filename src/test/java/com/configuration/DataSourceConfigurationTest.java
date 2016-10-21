@@ -26,7 +26,7 @@ public class DataSourceConfigurationTest {
     public void configDataSourceCorrectly() {
         assertThat(dataSource.getUsername(), is("root"));
         assertThat(dataSource.getPassword(), is(""));
-        assertThat(dataSource.getUrl(), is("jdbc:mysql://localhost:3306/purely"));
+//        assertThat(dataSource.getUrl(), is("jdbc:mysql://localhost:3306/purely"));
 //        assertThat(dataSource., is("org.mariadb.jdbc.Driver"));
     }
 }

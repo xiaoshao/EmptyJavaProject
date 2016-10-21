@@ -35,9 +35,10 @@ public class DataSourceConfiguration {
         driverManagerDataSource.setUsername(environment.getProperty("database.username"));
         driverManagerDataSource.setPassword(environment.getProperty("database.password"));
         driverManagerDataSource.setDriverClassName(environment.getProperty("database.driver"));
-//        driverManagerDataSource.setUrl(environment.getProperty("database.url"));
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/");
-        driverManagerDataSource.setCatalog("purely");
+        driverManagerDataSource.setUrl(environment.getProperty("database.url"));
+//        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/purely");
+//        driverManagerDataSource.setCatalog("purely");
+//        driverManagerDataSource.setSchema("purely");
         return driverManagerDataSource;
     }
 
