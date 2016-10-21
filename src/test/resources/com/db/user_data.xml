@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <dataset>
-    <User id="1" username="xiaoshao" password="xiaoshao" role="ROLE_ADMIN" />
-    <User id="2" username="DBUnit 2"  password="xiaoshao" role="ROLE_ADMIN" />
+    <USER id="1" username="xiaoshao" password="xiaoshao" role="ROLE_ADMIN" />
+    <USER id="2" username="DBUnit 2"  password="xiaoshao" role="ROLE_ADMIN" />
 </dataset>
