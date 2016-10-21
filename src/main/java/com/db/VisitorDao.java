@@ -30,12 +30,17 @@ public class VisitorDao {
 
         for(Map<String, Object> result: results){
             for(HashMap.Entry<String, Object> entry : result.entrySet()){
-                System.out.println("key:" + entry.getKey());
-                System.out.println("value:" + entry.getValue());
+                System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
             }
         }
 
-//        jdbcTemplate.query("show databases");
+        results  = jdbcTemplate.queryForList("show tables;");
+
+        for(Map<String, Object> result: results){
+            for(HashMap.Entry<String, Object> entry : result.entrySet()){
+                System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
+            }
+        }
     }
 
     public Optional<Visitor> queryById(int id) {
