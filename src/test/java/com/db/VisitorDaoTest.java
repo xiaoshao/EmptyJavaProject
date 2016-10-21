@@ -26,10 +26,10 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
         @ContextConfiguration(classes = RootConfiguration.class),
         @ContextConfiguration(classes = ApplicationConfiguration.class)
 })
-@TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class,
-})
+//@TestExecutionListeners({
+//        DependencyInjectionTestExecutionListener.class,
+//        DbUnitTestExecutionListener.class,
+//})
 @TestPropertySource(locations = "classpath:application.properties")
 public class VisitorDaoTest {
 
@@ -42,14 +42,14 @@ public class VisitorDaoTest {
     }
 
     @Test
-    @DatabaseSetup(value = {"user_data.xml"}, connection= "dataSource")
+//    @DatabaseSetup(value = {"user_data.xml"}, connection= "dataSource")
     public void shouldGetTheUserById() throws Exception {
-        assertThat(userDao.queryById(2).get(), samePropertyValuesAs(new Visitor(2, "DBUnit 2", "xiaoshao", "ROLE_ADMIN")));
+        assertThat(userDao.queryById(10).get(), samePropertyValuesAs(new Visitor(2, "DBUnit 2", "xiaoshao", "ROLE_ADMIN")));
     }
 
-    @Test
-    @DatabaseSetup(value = {"user_data.xml"}, connection= "dataSource")
-    public void shouldGetTheVisitorByName(){
-        assertThat(userDao.getUserByName("xiaoshao").get(), samePropertyValuesAs(new Visitor(1, "xiaoshao", "xiaoshao", "ROLE_ADMIN")));
-    }
+//    @Test
+//    @DatabaseSetup(value = {"user_data.xml"}, connection= "dataSource")
+//    public void shouldGetTheVisitorByName(){
+//        assertThat(userDao.getUserByName("xiaoshao").get(), samePropertyValuesAs(new Visitor(1, "xiaoshao", "xiaoshao", "ROLE_ADMIN")));
+//    }
 }
