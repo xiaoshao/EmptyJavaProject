@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -23,6 +25,15 @@ public class VisitorDao {
 
     public void save() {
         this.jdbcTemplate.update("insert into USER(id, username, password, role) values(?, ?, ?, ?)", "10", "addedUser", "password", "ROLE_ADMIN");
+
+        List<Map<String, Object>> results  = jdbcTemplate.queryForList("show databases");
+
+        for(Map<String, Object> result: results){
+            for(HashMap.Entry<String, Object> entry : result.entrySet()){
+                System.out.println("key:" + entry.getKey());
+                System.out.println("value:" + entry.getValue());
+            }
+        }
 
 //        jdbcTemplate.query("show databases");
     }
