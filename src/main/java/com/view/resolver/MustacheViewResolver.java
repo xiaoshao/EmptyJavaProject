@@ -10,11 +10,10 @@ import org.springframework.web.servlet.view.AbstractTemplateViewResolver;
 public class MustacheViewResolver extends AbstractTemplateViewResolver implements ViewResolver {
 
     private MustacheView defaultTemplate = null;
-    private DefaultMustacheFactory defaultMustacheFactory;
+    private DefaultMustacheFactory defaultMustacheFactory = new DefaultMustacheFactory();
 
     public MustacheViewResolver(String templateName) throws Exception {
         setViewClass(MustacheView.class);
-        defaultMustacheFactory = new DefaultMustacheFactory();
         buildDefaultTemplate(templateName);
     }
 
@@ -36,6 +35,11 @@ public class MustacheViewResolver extends AbstractTemplateViewResolver implement
     private void buildDefaultTemplate(String templateName) throws Exception {
         if (!StringUtils.isEmpty(templateName)) {
             defaultTemplate = (MustacheView) super.buildView(templateName);
+            defaultTemplate.setView(defaultMustacheFactory.compile(defaultTemplate.getUrl()));
         }
+    }
+
+    public void setDefaultTemplate(String template) throws Exception {
+        buildDefaultTemplate(template);
     }
 }

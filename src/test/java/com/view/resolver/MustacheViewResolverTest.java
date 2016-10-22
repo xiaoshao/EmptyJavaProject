@@ -53,4 +53,21 @@ public class MustacheViewResolverTest {
 
         assertThat(sw.toString(), is(expectedView));
     }
+
+    @Test
+    public void shouldBuildTheCorrectViewWithDefaultTemplate() throws Exception {
+        mustacheViewResolver.setDefaultTemplate("template");
+
+        MustacheView mustacheView = mustacheViewResolver.buildView("hello");
+
+        String expectedView = "<body><div>with-out-template</div>\n</body>\n";
+        Map<String, Object> model = new HashMap<>();
+        model.put("name", "with-out-template");
+
+        StringWriter sw = new StringWriter();
+        when(response.getWriter()).thenReturn(new PrintWriter(sw));
+        mustacheView.renderMergedTemplateModel(model, request, response);
+
+        assertThat(sw.toString(), is(expectedView));
+    }
 }
