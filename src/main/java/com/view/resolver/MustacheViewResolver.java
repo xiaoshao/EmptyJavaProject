@@ -2,34 +2,40 @@ package com.view.resolver;
 
 
 import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.AbstractTemplateViewResolver;
 
 public class MustacheViewResolver extends AbstractTemplateViewResolver implements ViewResolver {
 
-    private String templateName;
-
+    private MustacheView defaultTemplate = null;
     private DefaultMustacheFactory defaultMustacheFactory;
 
-    public MustacheViewResolver(String templateName) {
+    public MustacheViewResolver(String templateName) throws Exception {
         setViewClass(MustacheView.class);
         defaultMustacheFactory = new DefaultMustacheFactory();
-        this.templateName = templateName;
+        buildDefaultTemplate(templateName);
+    }
+
+    public MustacheViewResolver() {
+        setViewClass(MustacheView.class);
     }
 
     @Override
     protected MustacheView buildView(String viewName) throws Exception {
-        final MustacheView view = (MustacheView) super.buildView(viewName);
+        final MustacheView mustacheView = (MustacheView) super.buildView(viewName);
 
-        MustacheView mustacheView = new MustacheView();
-        mustacheView.setView(defaultMustacheFactory.compile(view.getUrl()));
+        Mustache mustache = defaultMustacheFactory.compile(mustacheView.getUrl());
+        mustacheView.setView(mustache);
+        mustacheView.setTemplate(defaultTemplate);
 
-        if(!StringUtils.isEmpty(templateName)){
-            final MustacheView template = (MustacheView) super.buildView(templateName);
-            mustacheView.setTemplate(template);
+        return mustache == null ? null : mustacheView;
+    }
+
+    private void buildDefaultTemplate(String templateName) throws Exception {
+        if (!StringUtils.isEmpty(templateName)) {
+            defaultTemplate = (MustacheView) super.buildView(templateName);
         }
-
-        return mustacheView;
     }
 }
